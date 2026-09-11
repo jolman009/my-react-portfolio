@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
-import { ExternalLink, Github, ChevronDown, ChevronUp } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import type { Project } from "../types";
+import ProjectModal from "./ProjectModal";
 
 // Fade-in-up entrance animation variants for project cards as they scroll into view
 const fadeInUpCardVariants: Variants = {
@@ -19,7 +21,7 @@ const fadeInUpCardVariants: Variants = {
   }),
 };
 
-const projects = [
+const projects: Project[] = [
   {
     id: 1,
     title: "E-Commerce Platform",
@@ -103,11 +105,7 @@ const projects = [
 ];
 
 export default function Projects() {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-
-  const toggleExpand = (id: number) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
@@ -133,10 +131,10 @@ export default function Projects() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            href="#"
+            href="#contact"
             className="glass glass-hover px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2"
           >
-            View All Projects
+            Request Custom Project
             <ExternalLink size={16} />
           </motion.a>
         </div>
@@ -150,9 +148,18 @@ export default function Projects() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15, margin: "0px 0px -50px 0px" }}
-              className="group relative overflow-hidden rounded-3xl glass glass-hover flex flex-col"
+              onClick={() => setSelectedProject(project)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedProject(project);
+                }
+              }}
+              className="group relative overflow-hidden rounded-3xl glass glass-hover flex flex-col cursor-pointer transition-all hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-accent-purple/50"
             >
-              <div className="aspect-[16/9] overflow-hidden">
+              <div className="aspect-[16/9] overflow-hidden relative">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -160,6 +167,12 @@ export default function Projects() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60" />
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="px-3 py-1.5 rounded-full text-xs font-semibold glass text-white flex items-center gap-1.5 backdrop-blur-md">
+                    View Details
+                    <ArrowUpRight size={14} />
+                  </span>
+                </div>
               </div>
               
               <div className="p-8 flex-grow flex flex-col">
@@ -174,64 +187,22 @@ export default function Projects() {
                   ))}
                 </div>
                 
-                <h3 className="text-2xl font-display font-bold mb-4 group-hover:text-accent-purple transition-colors">
-                  {project.title}
+                <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-accent-purple transition-colors flex items-center justify-between">
+                  <span>{project.title}</span>
+                  <ArrowUpRight size={20} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-accent-purple shrink-0" />
                 </h3>
                 
-                <p className="text-text-secondary mb-6 leading-relaxed">
+                <p className="text-text-secondary mb-6 leading-relaxed line-clamp-2">
                   {project.description}
                 </p>
-
-                <AnimatePresence>
-                  {expandedId === project.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 border-t border-surface-border mt-4 space-y-6">
-                        <div>
-                          <h4 className="text-sm font-bold text-accent-purple uppercase tracking-wider mb-2">Detailed Overview</h4>
-                          <p className="text-text-secondary text-sm leading-relaxed">
-                            {project.detailedDescription}
-                          </p>
-                        </div>
-                        
-                        <div className="grid sm:grid-cols-2 gap-6">
-                          <div>
-                            <h4 className="text-sm font-bold text-accent-blue uppercase tracking-wider mb-3">Challenges</h4>
-                            <ul className="space-y-2">
-                              {project.challenges.map((challenge, i) => (
-                                <li key={i} className="text-xs text-text-secondary flex items-start gap-2">
-                                  <span className="mt-1.5 h-1 w-1 rounded-full bg-accent-blue shrink-0" />
-                                  {challenge}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-bold text-accent-cyan uppercase tracking-wider mb-3">Solutions</h4>
-                            <ul className="space-y-2">
-                              {project.solutions.map((solution, i) => (
-                                <li key={i} className="text-xs text-text-secondary flex items-start gap-2">
-                                  <span className="mt-1.5 h-1 w-1 rounded-full bg-accent-cyan shrink-0" />
-                                  {solution}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
                 
-                <div className="mt-8 pt-6 border-t border-surface-border flex items-center justify-between">
+                <div className="mt-auto pt-6 border-t border-surface-border flex items-center justify-between">
                   <div className="flex items-center gap-6">
                     <a
                       href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-2 text-sm font-bold text-text-primary hover:text-accent-purple transition-colors"
                     >
                       <Github size={18} />
@@ -239,6 +210,9 @@ export default function Projects() {
                     </a>
                     <a
                       href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-2 text-sm font-bold text-text-primary hover:text-accent-purple transition-colors"
                     >
                       <ExternalLink size={18} />
@@ -246,26 +220,26 @@ export default function Projects() {
                     </a>
                   </div>
 
-                  <button
-                    onClick={() => toggleExpand(project.id)}
-                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-text-secondary hover:text-text-primary transition-colors"
-                  >
-                    {expandedId === project.id ? (
-                      <>
-                        Less <ChevronUp size={14} />
-                      </>
-                    ) : (
-                      <>
-                        Read More <ChevronDown size={14} />
-                      </>
-                    )}
-                  </button>
+                  <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-accent-purple group-hover:translate-x-1 transition-transform">
+                    View Details
+                    <ArrowUpRight size={14} />
+                  </span>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Project Details Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
