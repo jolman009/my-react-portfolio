@@ -1,5 +1,6 @@
 {
   "name": "Full-Stack Developer Portfolio",
   "description": "A modern, glassmorphic portfolio showcasing full-stack development projects and skills with interactive animations.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

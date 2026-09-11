@@ -1,6 +1,23 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import { ExternalLink, Github, ChevronDown, ChevronUp } from "lucide-react";
+
+// Fade-in-up entrance animation variants for project cards as they scroll into view
+const fadeInUpCardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+      delay: (index % 2) * 0.15,
+    },
+  }),
+};
 
 const projects = [
   {
@@ -128,10 +145,11 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              custom={index}
+              variants={fadeInUpCardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15, margin: "0px 0px -50px 0px" }}
               className="group relative overflow-hidden rounded-3xl glass glass-hover flex flex-col"
             >
               <div className="aspect-[16/9] overflow-hidden">
