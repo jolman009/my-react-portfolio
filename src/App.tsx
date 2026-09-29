@@ -37,7 +37,7 @@ export default function App() {
         <footer className="py-12 border-t border-white/5 text-center">
           <div className="container mx-auto px-6">
             <p className="text-text-secondary text-sm">
-              © {new Date().getFullYear()} John Doe. Built with React, Tailwind & Motion.
+              © {new Date().getFullYear()} Joel Guzman. Built with React, Tailwind & Motion.
             </p>
           </div>
         </footer>

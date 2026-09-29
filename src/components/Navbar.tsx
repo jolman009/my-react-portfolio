@@ -36,7 +36,7 @@ export default function Navbar() {
           }`}
         >
           <a href="#" className="text-2xl font-display font-bold text-gradient">
-            JD.
+            JG.
           </a>
 
           {/* Desktop Nav */}

@@ -24,7 +24,7 @@ const fadeInUpCardVariants: Variants = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "E-Commerce Platform",
+    title: "ShelfQuest Digital Library",
     description: "A full-stack e-commerce solution with real-time inventory management and secure payment integration.",
     detailedDescription: "This platform was built to handle high-traffic retail scenarios. It features a custom-built inventory synchronization engine that ensures stock levels are accurate across multiple warehouses in real-time.",
     challenges: [
@@ -44,7 +44,7 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Task Management App",
+    title: "Debate Master AI",
     description: "Collaborative project management tool with real-time updates and drag-and-drop functionality.",
     detailedDescription: "A productivity suite designed for remote teams. It includes real-time whiteboarding, automated sprint planning, and deep integration with popular communication tools like Slack and Discord.",
     challenges: [
@@ -64,7 +64,7 @@ const projects: Project[] = [
   },
   {
     id: 3,
-    title: "AI Image Generator",
+    title: "Receipt Radar",
     description: "Web application that generates images from text descriptions using advanced AI models.",
     detailedDescription: "An intuitive interface for generative AI. Users can fine-tune parameters, upscale images, and organize their creations into searchable galleries. The backend manages a complex queue of GPU-intensive tasks.",
     challenges: [
@@ -84,7 +84,7 @@ const projects: Project[] = [
   },
   {
     id: 4,
-    title: "Fitness Tracker",
+    title: "Canvas Notes",
     description: "Personal fitness companion for tracking workouts, nutrition, and progress with data visualization.",
     detailedDescription: "A comprehensive health dashboard that aggregates data from various wearables. It provides personalized insights using machine learning to predict performance trends and suggest recovery periods.",
     challenges: [
