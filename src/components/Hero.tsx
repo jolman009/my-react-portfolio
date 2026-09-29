@@ -26,7 +26,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-5xl md:text-8xl font-display font-bold mb-8 leading-tight tracking-tight"
         >
-          Hi, I'm <span className="text-gradient">John Doe</span>
+          Hi, I'm <span className="text-gradient">Joel Guzman</span>
           <br />
           <span className="text-text-secondary">Full Stack Developer</span>
         </motion.h1>
