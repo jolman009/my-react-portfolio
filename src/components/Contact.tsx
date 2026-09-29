@@ -42,9 +42,9 @@ export default function Contact() {
 
             <div className="space-y-8 mb-16">
               {[
-                { icon: <Mail className="text-accent-purple" />, label: "Email", value: "hello@johndoe.com" },
-                { icon: <Phone className="text-accent-blue" />, label: "Phone", value: "+1 (555) 123-4567" },
-                { icon: <MapPin className="text-accent-cyan" />, label: "Location", value: "San Francisco, CA" },
+                { icon: <Mail className="text-accent-purple" />, label: "Email", value: "jolman009@gmail.com" },
+                { icon: <Phone className="text-accent-blue" />, label: "Phone", value: "+1 (956) 865-2737" },
+                { icon: <MapPin className="text-accent-cyan" />, label: "Location", value: "Brownsville, TX" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-6 group">
                   <div className="p-4 rounded-xl glass glass-hover group-hover:scale-110 transition-transform">
